@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import styles from '@/styles/home/Home.module.css';
-import Login from '@/components/auth/Login';
+import styles from '@/styles/authentication/authentication.module.css';
+import Login from '@/components/authentication/Login';
 import { useState } from 'react';
-import Register from '@/components/auth/Register';
+import Register from '@/components/authentication/Register';
 import Image from 'next/image';
 
 export default function Home() {
@@ -18,7 +18,7 @@ export default function Home() {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <main className={`${styles.main} responsive_width`}>
+      <main className={styles.main}>
         <section className={`${styles.form} flex_column`} style={{ gap: '20px' }}>
           <Image
             src='/logo.png'

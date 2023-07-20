@@ -1,0 +1,18 @@
+.error {
+  color: var(--error);
+}
+
+.accent {
+  color: var(--primary);
+}
+
+.success {
+  color: var(--success);
+}
+
+.error,
+.accent,
+.success {
+  font-size: 18px;
+  font-weight: 500;
+}

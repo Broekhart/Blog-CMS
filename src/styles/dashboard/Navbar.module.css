@@ -1,0 +1,47 @@
+.navbar {
+  background-color: var(--white);
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(10px, -0.4779rem + 2.9412vw, 30px) 20px;
+}
+
+:is(.navbar) :is(a, button) {
+  background-color: transparent;
+  color: black;
+  text-align: left;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+:is(.navbar) :is(a:hover, button:hover) {
+  background-color: var(--secondary);
+}
+
+.active {
+  background-color: var(--primary) !important;
+  color: var(--white) !important;
+}
+
+.image {
+  object-fit: cover;
+}
+
+@media only screen and (width <= 600px) {
+  .navbar {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .image {
+    margin-inline: initial;
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
+  }
+
+  .active {
+    padding: 10px;
+    border-radius: 10px;
+  }
+}

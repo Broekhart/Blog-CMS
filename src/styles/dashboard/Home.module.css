@@ -1,0 +1,18 @@
+.grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  background-color: var(--background);
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.content {
+  padding: 30px 20px;
+}
+
+@media only screen and (width <= 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+}

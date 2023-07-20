@@ -3,8 +3,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #efe1fa;
+  background-color: var(--background);
   box-sizing: border-box;
+  padding-inline: 20px;
 }
 
 .main h2 {
@@ -15,7 +16,7 @@
   max-width: 300px;
   flex: 1;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 40px 45px;
+  padding: clamp(26px, 0.8529rem + 2.0588vw, 40px) clamp(28px, 0.8125rem + 2.5vw, 45px);
   border-radius: 10px;
   background-color: var(--white);
 }

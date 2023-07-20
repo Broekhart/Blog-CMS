@@ -5,6 +5,7 @@
   --black: #270143;
   --primary: #6f1cb0;
   --secondary: #d7abfa;
+  --background: #efe1fa;
   --error: #f44336;
   --success: #3c763d;
   --desktop_header_height: 140px;
@@ -60,10 +61,11 @@ button,
   border: 0;
   border-radius: 100px;
   box-sizing: border-box;
-  padding: 12px 24px;
+  padding: 16px 32px;
   cursor: pointer;
   background-color: var(--primary);
   color: var(--white);
+  text-align: center;
 }
 
 .secondary {
@@ -91,15 +93,12 @@ a {
 svg {
   height: 25px;
   width: 25px;
+  cursor: pointer;
 }
 
 img,
 video {
   max-width: 100%;
-}
-
-.responsive_width {
-  padding: var(--vertical_padding) var(--inline_padding);
 }
 
 .flex {

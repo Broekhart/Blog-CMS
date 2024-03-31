@@ -1,0 +1,115 @@
+---
+export const prerender = false;
+
+import { db, User, like, eq } from 'astro:db';
+import Layout from '../layouts/Layout.astro';
+import { comparePasswords, signToken } from '../utils/functions';
+import { expires } from '../utils/variables';
+
+let error = '';
+
+if (Astro.request.method === 'POST') {
+  try {
+    const formData = await Astro.request.formData();
+    const data = Object.fromEntries(formData.entries()) as { email: string; password: string };
+
+    const [user] = await db.select().from(User).where(like(User.email, data.email));
+    if (!user) throw new Error('User non esiste');
+
+    const validPassword = await comparePasswords(data.password, user.password);
+    if (!validPassword) throw new Error('Password sbagliata, riprova');
+
+    const token = signToken(`${user.id}`);
+    Astro.cookies.set('jwt', token, { httpOnly: true, expires });
+  } catch (e) {
+    error = e instanceof Error ? e.message : "Errore anomalo, contatta l'amministratore";
+    console.log(e);
+  }
+}
+---
+
+<Layout title='Login'>
+  <main class='login'>
+    <div class='form'>
+      <div class='flex-between items-end'>
+        <h2>Login</h2>
+        <a href='/register'>Registrati</a>
+      </div>
+      <form method='post'>
+        <label>Email</label>
+        <input name='email' type='email' placeholder='mariorossi@gmail.com' />
+        <label>Password</label>
+        <input name='password' type='password' />
+        {error && <p class='error'>{error}</p>}
+        <button>Login</button>
+      </form>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .login {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    background-color: var(--primary);
+    color: var(--black);
+  }
+
+  .form {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 20px;
+    width: min(270px, 100%);
+  }
+
+  .flex-between {
+    margin-bottom: 30px;
+    & a {
+      translate: -3px;
+    }
+  }
+
+  label {
+    font-weight: 600;
+  }
+
+  input {
+    box-sizing: border-box;
+    border: 1px solid hsla(0, 0%, 0%, 0.33);
+    border-radius: 8px;
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    padding: 12px 12px;
+    font-size: 16px;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  button {
+    cursor: pointer;
+    background-color: #ddf739;
+    color: var(--black);
+    border: 0;
+    padding: 12px;
+    border-radius: 10px;
+    width: max(100px, 100%);
+    margin-top: 40px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .error {
+    color: white;
+    background-color: #a52a2a;
+    margin-top: 20px;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 16px;
+    border-radius: 4px;
+  }
+</style>

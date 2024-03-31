@@ -1,51 +1,97 @@
 ---
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='description' content='Astro description' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <link rel='preconnect' href='https://fonts.googleapis.com' />
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+    <link
+      href='https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap'
+      rel='stylesheet'
+    />
+    <meta name='generator' content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
 </html>
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
+  :root {
+    --primary: #ddf739;
+    --white: #fefff5;
+    --black: #2e3502;
+  }
+  html {
+    font-family: 'Lato', sans-serif;
+  }
+  body {
+    font-size: 18px;
+    line-height: 23px;
+    margin: 0;
+  }
+  h1,
+  .h1 {
+    font-size: 61px;
+    line-height: 69px;
+  }
+  h2,
+  .h2 {
+    font-size: 41px;
+    line-height: 46px;
+  }
+  h3,
+  .h3 {
+    font-size: 27px;
+    line-height: 46px;
+  }
+  h4,
+  .h4 {
+    font-size: 18px;
+    line-height: 23px;
+  }
+  :is(h1, h2, h3, h4, p) {
+    margin: 0;
+    padding: 0;
+  }
+  img {
+    display: block;
+    max-width: 100%;
+  }
+  .container {
+    width: min(100% - 2rem, 1280px);
+    margin-inline: auto;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .flex-between {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .items-center {
+    align-items: center;
+  }
+
+  .items-end {
+    align-items: flex-end;
+  }
 </style>

@@ -3,15 +3,28 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
+    "dev": "astro dev --remote",
+    "start": "astro dev --remote",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.5.6",
+    "@astrojs/alpinejs": "^0.4.0",
     "@astrojs/check": "^0.5.9",
-    "typescript": "^5.4.2"
+    "@astrojs/db": "^0.8.8",
+    "@astrojs/node": "^8.2.4",
+    "@astrojs/vue": "^4.0.9",
+    "@types/alpinejs": "^3.13.9",
+    "alpinejs": "^3.13.7",
+    "astro": "^4.5.6",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "typescript": "^5.4.2",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.6"
   }
 }

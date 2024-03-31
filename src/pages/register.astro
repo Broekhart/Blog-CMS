@@ -1,0 +1,116 @@
+---
+export const prerender = false;
+
+import { db, User } from 'astro:db';
+import Layout from '../layouts/Layout.astro';
+import { encryptPassword } from '../utils/functions';
+
+type User = {
+  username: string;
+  email: string;
+  password: string;
+};
+
+let error = '';
+
+if (Astro.request.method === 'POST') {
+  console.log('we');
+  try {
+    const formData = await Astro.request.formData();
+
+    const user = Object.fromEntries(formData.entries()) as User;
+    await db.insert(User).values({
+      id: crypto.randomUUID(),
+      username: user.username,
+      email: user.email,
+      password: await encryptPassword(user.password),
+    });
+    return Astro.redirect('/login');
+  } catch (e) {
+    error = e instanceof Error ? e.message : "Errore anomalo, contatta l'amministratore";
+    console.log(e);
+  }
+}
+---
+
+<Layout title='Register'>
+  <main class='register'>
+    <div class='form'>
+      <h2>Register</h2>
+      <form method='post'>
+        <label>Username</label>
+        <input name='username' type='text' placeholder='Mario Rossi...' />
+        <label>Email</label>
+        <input name='email' type='email' placeholder='mariorossi@gmail.com' />
+        <label>Password</label>
+        <input name='password' type='password' />
+        {error && <p class='error'>{error}</p>}
+        <button>Register</button>
+      </form>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .register {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    background-color: var(--primary);
+    color: var(--black);
+  }
+
+  .form {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 10px;
+    width: min(270px, 100%);
+  }
+
+  h2 {
+    margin-bottom: 30px;
+  }
+
+  label {
+    font-weight: 600;
+  }
+
+  input {
+    box-sizing: border-box;
+    border: 1px solid hsla(0, 0%, 0%, 0.33);
+    border-radius: 8px;
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    padding: 12px 12px;
+    font-size: 16px;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  button {
+    cursor: pointer;
+    background-color: #ddf739;
+    color: var(--black);
+    border: 0;
+    padding: 12px;
+    border-radius: 10px;
+    width: max(100px, 100%);
+    margin-top: 40px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .error {
+    color: white;
+    background-color: #a52a2a;
+    margin-top: 20px;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 16px;
+    border-radius: 4px;
+  }
+</style>
